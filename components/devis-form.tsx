@@ -1,67 +1,71 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { CalendarIcon, CheckIcon, InfoIcon } from "lucide-react"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { CalendarIcon, CheckIcon, InfoIcon } from "lucide-react";
+import PhoneInput from "@/components/PhoneInput";
+import CustomPhoneInput from "@/components/PhoneInput";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Calendar } from "@/components/ui/calendar";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import { cn } from "@/lib/utils";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useLanguage } from "@/lib/i18n/LanguageContent";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Calendar } from "@/components/ui/calendar"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { format } from "date-fns"
-import { fr } from "date-fns/locale"
-import { cn } from "@/lib/utils"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+// Schéma de validation du formulaire avec traduction
+const formSchema = (t: (key: string) => string) =>
+  z.object({
+    // Informations personnelles
+    nom: z.string().min(2, { message: t("api.Devis_schemaVal_nom") }),
+    prenom: z.string().min(5, { message: t("api.Devis_schemaVal_prenom") }),
+    email: z.string().email({ message: t("api.Devis_schemaVal_email") }),
+    telephone: z.string().min(10, { message: t("api.Devis_schemaVal_tel") }),
 
-// Schéma de validation du formulaire
-const formSchema = z.object({
-  // Informations personnelles
-  nom: z.string().min(2, { message: "Le nom doit contenir au moins 2 caractères" }),
-  prenom: z.string().min(2, { message: "Le prénom doit contenir au moins 2 caractères" }),
-  email: z.string().email({ message: "Veuillez entrer une adresse email valide" }),
-  telephone: z.string().min(10, { message: "Veuillez entrer un numéro de téléphone valide" }),
+    // Informations entreprise
+    entreprise: z.string().optional(),
+    poste: z.string().optional(),
+    taille: z.enum(["1-10", "11-50", "51-200", "201-500", "500+"]).optional(),
 
-  // Informations entreprise
-  entreprise: z.string().optional(),
-  poste: z.string().optional(),
-  taille: z.enum(["1-10", "11-50", "51-200", "201-500", "500+"]).optional(),
+    // Services
+    services: z.array(z.string()).min(1, { message: t("api.Devis_schemaVal_service") }),
 
-  // Services
-  services: z.array(z.string()).min(1, { message: "Veuillez sélectionner au moins un service" }),
+    // Détails du projet
+    description: z.string().min(20, { message: t("api.Devis_schemaVal_DescriptionProjet") }),
+    budget: z.enum(["<5000", "5000-10000", "10000-25000", "25000-50000", "50000+"]),
+    delai: z.date({
+      required_error: t("api.Devis_schemaVal_dateSouhaite"),
+    }),
 
-  // Détails du projet
-  description: z.string().min(20, { message: "Veuillez fournir une description d'au moins 20 caractères" }),
-  budget: z.enum(["<5000", "5000-10000", "10000-25000", "25000-50000", "50000+"]),
-  delai: z.date({
-    required_error: "Veuillez sélectionner une date souhaitée",
-  }),
+    // Préférences de contact
+    contact_preference: z.enum(["email", "telephone", "visioconference"]),
 
-  // Préférences de contact
-  contact_preference: z.enum(["email", "telephone", "visioconference"]),
-
-  // Conditions
-  conditions: z.literal(true, {
-    errorMap: () => ({ message: "Vous devez accepter les conditions d'utilisation" }),
-  }),
-})
+    // Conditions
+    conditions: z.boolean().refine((val) => val === true, {
+      message: t("api.Devis_schemaVal_conditions"),
+    }),
+  });
 
 export default function DevisForm() {
-  const router = useRouter()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const { t } = useLanguage();
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   // Initialiser le formulaire avec react-hook-form et zod
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<ReturnType<typeof formSchema>>>({
+    resolver: zodResolver(formSchema(t)), 
     defaultValues: {
       nom: "",
       prenom: "",
@@ -71,39 +75,50 @@ export default function DevisForm() {
       poste: "",
       services: [],
       description: "",
+      budget: "<5000",
       contact_preference: "email",
       conditions: false,
     },
-  })
+  });
 
   // Liste des services proposés
   const servicesList = [
     { id: "infrastructure", label: "Infrastructure Réseau" },
-    { id: "cybersecurite", label: "Cybersécurité" },
     { id: "maintenance", label: "Maintenance Système" },
     { id: "vpn", label: "Solutions VPN" },
     { id: "cloud", label: "Cloud Computing" },
     { id: "support", label: "Support 24/7" },
     { id: "audit", label: "Audit de sécurité" },
     { id: "sauvegarde", label: "Solutions de sauvegarde" },
-  ]
+  ];
 
   // Gérer la soumission du formulaire
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true)
+  const onSubmit = async (values: z.infer<ReturnType<typeof formSchema>>) => {
+    setIsSubmitting(true);
 
-    // Simuler un envoi de formulaire (à remplacer par votre logique d'API)
-    setTimeout(() => {
-      console.log(values)
-      setIsSubmitting(false)
-      setIsSubmitted(true)
+    try {
+      // Envoyer les données du formulaire à l'API
+      const response = await fetch("/api/devis", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
 
-      // Rediriger vers la page d'accueil après 5 secondes
-      setTimeout(() => {
-        router.push("/")
-      }, 5000)
-    }, 1500)
-  }
+      const result = await response.json();
+
+      if (response.ok) {
+        setIsSubmitted(true); // Afficher le message de succès
+      } else {
+        console.error(t("api.Devis_apiEreur"), result.message);
+      }
+    } catch (error) {
+      console.error(t("api.Devis_apiEreur"), error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   if (isSubmitted) {
     return (
@@ -113,19 +128,18 @@ export default function DevisForm() {
             <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
               <CheckIcon className="h-6 w-6 text-green-600" />
             </div>
-            <h2 className="text-2xl font-bold">Demande de devis envoyée avec succès !</h2>
+            <h2 className="text-2xl font-bold">{t("api.Devis_succes_h2")}</h2>
             <p className="text-muted-foreground max-w-[600px]">
-              Merci pour votre demande. Notre équipe va étudier votre projet et vous contactera dans les plus brefs
-              délais.
+              {t("api.Devis_desciption_succes")}
             </p>
             <p className="text-sm text-muted-foreground">
-              Vous allez être redirigé vers la page d'accueil dans quelques secondes...
+              {t("api.Devis_redirection")}
             </p>
-            <Button onClick={() => router.push("/")}>Retour à l'accueil</Button>
+            <Button onClick={() => router.push("/")}>{t("api.Devis_pageAccueil")}</Button>
           </div>
         </CardContent>
       </Card>
-    )
+    );
   }
 
   return (
@@ -135,14 +149,14 @@ export default function DevisForm() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             {/* Section Informations personnelles */}
             <div>
-              <h2 className="text-xl font-semibold mb-4">Informations personnelles</h2>
+              <h2 className="text-xl font-semibold mb-4">{t("api.Devis_Informations_personnelles")}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="nom"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nom*</FormLabel>
+                      <FormLabel>{t("api.Devis_Nom")}</FormLabel>
                       <FormControl>
                         <Input placeholder="Koné" {...field} />
                       </FormControl>
@@ -156,7 +170,7 @@ export default function DevisForm() {
                   name="prenom"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Prénom*</FormLabel>
+                      <FormLabel>{t("api.Devis_Prenoms")}</FormLabel>
                       <FormControl>
                         <Input placeholder="Sarah" {...field} />
                       </FormControl>
@@ -182,11 +196,15 @@ export default function DevisForm() {
                 <FormField
                   control={form.control}
                   name="telephone"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
-                      <FormLabel>Téléphone*</FormLabel>
+                      <FormLabel>{t("api.Devis_Telephone")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="01 00 96 66 11" {...field} />
+                        <CustomPhoneInput
+                          value={field.value}
+                          onChange={field.onChange}
+                          error={fieldState.error?.message}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -197,16 +215,16 @@ export default function DevisForm() {
 
             {/* Section Informations entreprise */}
             <div>
-              <h2 className="text-xl font-semibold mb-4">Informations entreprise</h2>
+              <h2 className="text-xl font-semibold mb-4">{t("api.Devis_Entreprise")}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="entreprise"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nom de l'entreprise</FormLabel>
+                      <FormLabel>{t("api.Devis_plaholder_entreprise")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Entreprise ONMA" {...field} />
+                        <Input placeholder={t("api.Devis_plaholder_entreprise2")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -218,9 +236,9 @@ export default function DevisForm() {
                   name="poste"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Poste / Fonction</FormLabel>
+                      <FormLabel>{t("api.Devis_poste")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Directrice IT" {...field} />
+                        <Input placeholder={t("api.Devis_plaholderPoste")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -232,19 +250,19 @@ export default function DevisForm() {
                   name="taille"
                   render={({ field }) => (
                     <FormItem className="md:col-span-2">
-                      <FormLabel>Taille de l'entreprise</FormLabel>
+                      <FormLabel>{t("api.Devis_Taillenentreprise")}</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Sélectionnez la taille de votre entreprise" />
+                            <SelectValue placeholder={t("api.Devis_Taillenentrepriseplaceholder")} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="1-10">1-10 employés</SelectItem>
-                          <SelectItem value="11-50">11-50 employés</SelectItem>
-                          <SelectItem value="51-200">51-200 employés</SelectItem>
-                          <SelectItem value="201-500">201-500 employés</SelectItem>
-                          <SelectItem value="500+">Plus de 500 employés</SelectItem>
+                          <SelectItem value="1-10">1-10 {t("api.Devis_employes")}</SelectItem>
+                          <SelectItem value="11-50">11-50 {t("api.Devis_employes")}</SelectItem>
+                          <SelectItem value="51-200">51-200 {t("api.Devis_employes")}</SelectItem>
+                          <SelectItem value="201-500">201-500 {t("api.Devis_employes")}</SelectItem>
+                          <SelectItem value="500+">+ de 500 {t("api.Devis_employes")}</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -256,7 +274,7 @@ export default function DevisForm() {
 
             {/* Section Services */}
             <div>
-              <h2 className="text-xl font-semibold mb-4">Services souhaités*</h2>
+              <h2 className="text-xl font-semibold mb-4">{t("api.Devis_Services_souhaite")}</h2>
               <FormField
                 control={form.control}
                 name="services"
@@ -283,7 +301,7 @@ export default function DevisForm() {
                                 </FormControl>
                                 <FormLabel className="font-normal">{service.label}</FormLabel>
                               </FormItem>
-                            )
+                            );
                           }}
                         />
                       ))}
@@ -296,17 +314,17 @@ export default function DevisForm() {
 
             {/* Section Détails du projet */}
             <div>
-              <h2 className="text-xl font-semibold mb-4">Détails du projet</h2>
+              <h2 className="text-xl font-semibold mb-4">{t("api.Devis_Details_du_projet")}</h2>
 
               <FormField
                 control={form.control}
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Description du projet / besoin*</FormLabel>
+                    <FormLabel>{t("api.Devis_DescriptionProjet")}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Décrivez votre projet ou vos besoins en détail..."
+                        placeholder={t("api.Devis_PlaceholderDescriptBesoin")}
                         className="min-h-[120px]"
                         {...field}
                       />
@@ -322,19 +340,19 @@ export default function DevisForm() {
                   name="budget"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Budget estimé*</FormLabel>
+                      <FormLabel>{t("api.Devis_budget")}</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Sélectionnez votre budget" />
+                            <SelectValue placeholder={t("api.Devis_budget")} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="<500000">Moins de 5 00000 CFA</SelectItem>
-                          <SelectItem value="500000-1000000">5 00000 CFA - 1 000 000 CFA</SelectItem>
-                          <SelectItem value="1000000-25000000">1 000 000 CFA - 25 000 000 CFA</SelectItem>
-                          <SelectItem value="25000000-5000000">25 000 000 CFA - 50 000 000 CFA</SelectItem>
-                          <SelectItem value="50000000+">Plus de 50 000 000 CFA</SelectItem>
+                          <SelectItem value="<5000">- de 5 000 CFA</SelectItem>
+                          <SelectItem value="5000-10000">5 000 CFA - 10 000 CFA</SelectItem>
+                          <SelectItem value="10000-25000">10 000 CFA - 25 000 CFA</SelectItem>
+                          <SelectItem value="25000-50000">25 000 CFA - 50 000 CFA</SelectItem>
+                          <SelectItem value="50000+">+ de 50 000 CFA</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -347,7 +365,7 @@ export default function DevisForm() {
                   name="delai"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Date souhaitée de réalisation*</FormLabel>
+                      <FormLabel>{t("api.Devis_Date_souhaitee_realisation")}</FormLabel>
                       <Popover>
                         <PopoverTrigger asChild>
                           <FormControl>
@@ -361,7 +379,7 @@ export default function DevisForm() {
                               {field.value ? (
                                 format(field.value, "PPP", { locale: fr })
                               ) : (
-                                <span>Sélectionnez une date</span>
+                                <span>{t("api.Devis_date")}</span>
                               )}
                               <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                             </Button>
@@ -377,7 +395,7 @@ export default function DevisForm() {
                           />
                         </PopoverContent>
                       </Popover>
-                      <FormDescription>Minimum 7 jours à partir d'aujourd'hui</FormDescription>
+                      <FormDescription>{t("api.Devis_delai")}</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -387,14 +405,14 @@ export default function DevisForm() {
 
             {/* Section Préférences de contact */}
             <div>
-              <h2 className="text-xl font-semibold mb-4">Préférences de contact</h2>
+              <h2 className="text-xl font-semibold mb-4">{t("api.Devis_Preferences_contact")}</h2>
 
               <FormField
                 control={form.control}
                 name="contact_preference"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
-                    <FormLabel>Comment souhaitez-vous être contacté?*</FormLabel>
+                    <FormLabel>{t("api.Devis_Preferences_contact")}</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
@@ -411,7 +429,7 @@ export default function DevisForm() {
                           <FormControl>
                             <RadioGroupItem value="telephone" />
                           </FormControl>
-                          <FormLabel className="font-normal">Téléphone</FormLabel>
+                          <FormLabel className="font-normal">{t("api.Devis_PreferencesTel")}</FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
@@ -437,10 +455,9 @@ export default function DevisForm() {
                     <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>J'accepte les conditions d'utilisation et la politique de confidentialité*</FormLabel>
+                    <FormLabel>{t("api.Devis_PreferencesConditionUtil")}</FormLabel>
                     <FormDescription>
-                      En soumettant ce formulaire, vous acceptez que vos données soient traitées conformément à notre
-                      politique de confidentialité.
+                      {t("api.Devis_ConditionUtil")}
                     </FormDescription>
                   </div>
                   <FormMessage />
@@ -448,19 +465,19 @@ export default function DevisForm() {
               )}
             />
 
+        
             <Alert>
               <InfoIcon className="h-4 w-4" />
               <AlertTitle>Information</AlertTitle>
-              <AlertDescription>Les champs marqués d'un astérisque (*) sont obligatoires.</AlertDescription>
+              <AlertDescription>{t("api.Devis_Information")}</AlertDescription>
             </Alert>
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande de devis"}
+              {isSubmitting ? t("api.Devis_Traitementrdv") : t("api.Devis_Reserverrdv")}
             </Button>
           </form>
         </Form>
       </CardContent>
     </Card>
-  )
+  );
 }
-

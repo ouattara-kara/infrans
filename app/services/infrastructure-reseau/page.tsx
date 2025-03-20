@@ -1,14 +1,15 @@
+"use client"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { CheckCircle, Server, Network, Shield, Clock } from "lucide-react"
+import { useLanguage } from "@/lib/i18n/LanguageContent"
 
-export const metadata = {
-  title: "Infrastructure Réseau - Infrans",
-  description: "Solutions d'infrastructure réseau performantes et sécurisées pour votre entreprise.",
-}
+
 
 export default function InfrastructureReseauPage() {
+  const { t } = useLanguage();
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between py-12">
       <div className="container px-4 md:px-6 mx-auto">
@@ -18,19 +19,18 @@ export default function InfrastructureReseauPage() {
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center lg:text-left">
-                  Infrastructure Réseau
+                {t("infrastructureReseau.heroTitle")}
                 </h1>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-center lg:text-left">
-                  Des solutions réseau performantes, évolutives et sécurisées pour connecter efficacement votre
-                  entreprise.
+                {t("infrastructureReseau.heroDescription")}
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center lg:justify-start">
                 <Button size="lg" asChild>
-                  <Link href="/devis">Demander un devis</Link>
+                  <Link href="/devis">{t("infrastructureReseau.demanderDevis")}</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <Link href="/contact">Nous contacter</Link>
+                  <Link href="/contact">{t("infrastructureReseau.nousContacter")}</Link>
                 </Button>
               </div>
             </div>
@@ -38,7 +38,7 @@ export default function InfrastructureReseauPage() {
               src="/infr.png"
               width={550}
               height={550}
-              alt="Infrastructure réseau"
+              alt={t("infrastructureReseau.title")}
               className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
             />
           </div>
@@ -47,47 +47,43 @@ export default function InfrastructureReseauPage() {
         {/* Nos services d'infrastructure réseau */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-8 text-center">
-            Nos services d'infrastructure réseau
+          {t("infrastructureReseau.nosServices")}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="bg-card border rounded-lg p-6 shadow-sm flex flex-col items-center text-center">
               <div className="bg-primary/10 p-3 rounded-full mb-4">
                 <Server className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Conception de réseau</h3>
+              <h3 className="text-xl font-bold mb-2">{t("infrastructureReseau.conceptionReseau")}</h3>
               <p className="text-muted-foreground">
-                Conception et planification d'infrastructures réseau adaptées à vos besoins spécifiques, qu'il s'agisse
-                de réseaux locaux (LAN), étendus (WAN) ou sans fil (WLAN).
+              {t("infrastructureReseau.conceptionReseauDescription")}
               </p>
             </div>
             <div className="bg-card border rounded-lg p-6 shadow-sm flex flex-col items-center text-center">
               <div className="bg-primary/10 p-3 rounded-full mb-4">
                 <Network className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Déploiement et installation</h3>
+              <h3 className="text-xl font-bold mb-2"> {t("infrastructureReseau.deploiementInstallation")}</h3>
               <p className="text-muted-foreground">
-                Installation et configuration de tous les composants réseau : routeurs, commutateurs, pare-feu, points
-                d'accès Wi-Fi, et autres équipements essentiels.
+              {t("infrastructureReseau.deploiementInstallationDescription")}
               </p>
             </div>
             <div className="bg-card border rounded-lg p-6 shadow-sm flex flex-col items-center text-center">
               <div className="bg-primary/10 p-3 rounded-full mb-4">
                 <Shield className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Sécurisation réseau</h3>
+              <h3 className="text-xl font-bold mb-2">{t("infrastructureReseau.securisationReseau")}</h3>
               <p className="text-muted-foreground">
-                Mise en place de solutions de sécurité réseau robustes : pare-feu nouvelle génération, systèmes de
-                détection d'intrusion, VPN sécurisés et segmentation réseau.
+              {t("infrastructureReseau.securisationReseauDescription")}
               </p>
             </div>
             <div className="bg-card border rounded-lg p-6 shadow-sm flex flex-col items-center text-center">
               <div className="bg-primary/10 p-3 rounded-full mb-4">
                 <Clock className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Maintenance et support</h3>
+              <h3 className="text-xl font-bold mb-2">{t("infrastructureReseau.maintenanceSupport")}</h3>
               <p className="text-muted-foreground">
-                Services de maintenance préventive et corrective pour assurer la disponibilité et les performances
-                optimales de votre infrastructure réseau.
+              {t("infrastructureReseau.maintenanceSupportDescription")}
               </p>
             </div>
             <div className="bg-card border rounded-lg p-6 shadow-sm flex flex-col items-center text-center">
@@ -107,10 +103,9 @@ export default function InfrastructureReseauPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-2">Optimisation des performances</h3>
+              <h3 className="text-xl font-bold mb-2">{t("infrastructureReseau.optimisationPerformances")}</h3>
               <p className="text-muted-foreground">
-                Analyse et optimisation de votre réseau pour améliorer les performances, réduire la latence et garantir
-                une bande passante adéquate pour vos applications critiques.
+              {t("infrastructureReseau.optimisationPerformancesDescription")}
               </p>
             </div>
             <div className="bg-card border rounded-lg p-6 shadow-sm flex flex-col items-center text-center">
@@ -130,57 +125,54 @@ export default function InfrastructureReseauPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-2">Évolution et mise à niveau</h3>
+              <h3 className="text-xl font-bold mb-2">{t("infrastructureReseau.evolutionMiseAJour")}</h3>
               <p className="text-muted-foreground">
-                Accompagnement dans l'évolution de votre infrastructure réseau pour suivre la croissance de votre
-                entreprise et l'adoption de nouvelles technologies.
+              {t("infrastructureReseau.evolutionMiseAJourDescription")}
               </p>
             </div>
           </div>
         </section>
 
-        {/* Pourquoi choisir NetSys Solutions */}
+        {/* Pourquoi choisir Infrans */}
         <section className="mb-16 bg-secondary py-12 rounded-lg">
           <div className="container px-4 md:px-6 mx-auto">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-8 text-center">
-              Pourquoi choisir Infrans ?
+            {t("infrastructureReseau.pourquoiChoisir")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex items-start space-x-4">
                 <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold mb-2">Expertise certifiée</h3>
+                  <h3 className="text-xl font-bold mb-2">{t("infrastructureReseau.expertiseCertifiee")}</h3>
                   <p className="text-muted-foreground">
-                    Notre équipe est composée d'ingénieurs certifiés Cisco, Juniper, HPE et autres technologies réseau
-                    de pointe.
+                  {t("infrastructureReseau.expertiseCertifieeDescription")}
                   </p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
                 <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold mb-2">Solutions sur mesure</h3>
+                  <h3 className="text-xl font-bold mb-2">{t("infrastructureReseau.solutionsSurMesure")}</h3>
                   <p className="text-muted-foreground">
-                    Nous concevons des infrastructures réseau adaptées à vos besoins spécifiques et à votre budget.
+                  {t("infrastructureReseau.solutionsSurMesureDescription")}.
                   </p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
                 <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold mb-2">Support 24/7</h3>
+                  <h3 className="text-xl font-bold mb-2">{t("infrastructureReseau.support24_7")}</h3>
                   <p className="text-muted-foreground">
-                    Notre équipe de support est disponible 24h/24 et 7j/7 pour résoudre rapidement tout problème réseau.
+                  {t("infrastructureReseau.support24_7Description")}.
                   </p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
                 <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold mb-2">Approche proactive</h3>
+                  <h3 className="text-xl font-bold mb-2">{t("infrastructureReseau.approcheProactive")}.</h3>
                   <p className="text-muted-foreground">
-                    Nous surveillons en permanence votre réseau pour identifier et résoudre les problèmes avant qu'ils
-                    n'affectent votre activité.
+                  {t("infrastructureReseau.approcheProactiveDescription")}.
                   </p>
                 </div>
               </div>
@@ -190,7 +182,7 @@ export default function InfrastructureReseauPage() {
 
         {/* Études de cas */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-8 text-center">Nos réalisations</h2>
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-8 text-center">{t("infrastructureReseau.nosRealisations")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-card border rounded-lg overflow-hidden shadow-sm">
               <Image
@@ -201,14 +193,11 @@ export default function InfrastructureReseauPage() {
                 className="w-full h-48 object-cover"
               />
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">Refonte du réseau pour une entreprise de 500 employés</h3>
+                <h3 className="text-xl font-bold mb-2">{t("infrastructureReseau.refonteReseau")}</h3>
                 <p className="text-muted-foreground mb-4">
-                  Conception et déploiement d'une infrastructure réseau complète pour améliorer les performances et la
-                  sécurité tout en réduisant les coûts opérationnels.
+                {t("infrastructureReseau.refonteReseauDescription")}
                 </p>
-                <Button variant="outline" size="sm">
-                  Lire l'étude de cas
-                </Button>
+               
               </div>
             </div>
             <div className="bg-card border rounded-lg overflow-hidden shadow-sm">
@@ -221,15 +210,12 @@ export default function InfrastructureReseauPage() {
               />
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-2">
-                  Déploiement d'un réseau multi-sites pour un groupe industriel
+                {t("infrastructureReseau.deploiementMultiSites")}
                 </h3>
                 <p className="text-muted-foreground mb-4">
-                  Mise en place d'une infrastructure réseau sécurisée reliant 12 sites répartis dans le monde
-                  avec une haute disponibilité.
+                {t("infrastructureReseau.deploiementMultiSitesDescription")}
                 </p>
-                <Button variant="outline" size="sm">
-                  Lire l'étude de cas
-                </Button>
+                
               </div>
             </div>
           </div>
@@ -238,15 +224,14 @@ export default function InfrastructureReseauPage() {
         {/* CTA */}
         <section className="bg-primary text-primary-foreground py-12 rounded-lg text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">
-            Prêt à optimiser votre infrastructure réseau ?
+          {t("infrastructureReseau.pretAOptimiser")}
           </h2>
           <p className="mb-6 max-w-2xl mx-auto">
-            Contactez-nous dès aujourd'hui pour discuter de vos besoins en infrastructure réseau et découvrir comment
-            nous pouvons vous aider à améliorer les performances et la sécurité de votre réseau.
+          {t("infrastructureReseau.pretAOptimiserDescription")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90">
-              <Link href="/devis">Demander un devis</Link>
+              <Link href="/devis">{t("infrastructureReseau.demanderDevis")}</Link>
             </Button>
             <Button
               size="lg"
@@ -254,7 +239,7 @@ export default function InfrastructureReseauPage() {
               asChild
               className="bg-transparent border-white text-white hover:bg-primary-foreground/10"
             >
-              <Link href="/contact">Nous contacter</Link>
+              <Link href="/contact">{t("infrastructureReseau.nousContacter")}</Link>
             </Button>
           </div>
         </section>

@@ -26,20 +26,19 @@ export default function PolitiqueConfidentialitePage() {
             <h2 className="text-2xl font-semibold mb-4">2. Collecte des données personnelles</h2>
             <p className="mb-4">Nous collectons les données personnelles suivantes :</p>
             <ul className="list-disc pl-6 mb-4 space-y-2">
-              <li>Nom et prénom</li>
+              <li>Nom et prénoms</li>
               <li>Adresse email</li>
               <li>Numéro de téléphone</li>
               <li>Nom de l'entreprise</li>
               <li>Fonction professionnelle</li>
-              <li>Données de connexion et d'utilisation du site</li>
+            
             </ul>
             <p className="mb-4">Ces données sont collectées lorsque vous :</p>
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>Remplissez un formulaire de contact</li>
               <li>Demandez un devis</li>
-              <li>Réservez un appel</li>
-              <li>Vous inscrivez à notre newsletter</li>
-              <li>Naviguez sur notre site (cookies)</li>
+              <li>Réservez un rendez-vous</li>
+              
             </ul>
           </section>
 
@@ -47,7 +46,7 @@ export default function PolitiqueConfidentialitePage() {
             <h2 className="text-2xl font-semibold mb-4">3. Utilisation des données</h2>
             <p className="mb-4">Les données personnelles collectées sont utilisées pour :</p>
             <ul className="list-disc pl-6 mb-4 space-y-2">
-              <li>Gérer votre accès à nos services</li>
+             
               <li>Répondre à vos demandes de contact</li>
               <li>Vous fournir des devis personnalisés</li>
               <li>Organiser des appels et rendez-vous</li>
@@ -66,7 +65,7 @@ export default function PolitiqueConfidentialitePage() {
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>Données de contact : 3 ans à compter du dernier contact</li>
               <li>Données clients : durée de la relation contractuelle + 5 ans à des fins de preuve</li>
-              <li>Données de navigation et cookies : 13 mois maximum</li>
+             
             </ul>
           </section>
 
@@ -107,19 +106,12 @@ export default function PolitiqueConfidentialitePage() {
             </ul>
             <p className="mb-4">
               Pour exercer ces droits, vous pouvez nous contacter par email à privacy@ninfrans.onma ou par
-              courrier à NetSys Solutions, Cocody l'Informatique, 75000 Cote d'ivoire.
+              courrier à infrans.io, Cocody l'Informatique, 75000 Cote d'ivoire.
             </p>
           </section>
 
           
-          <section>
-            <h2 className="text-2xl font-semibold mb-4">9. Modifications</h2>
-            <p className="mb-4">
-              Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. Toute
-              modification sera publiée sur cette page avec une date de mise à jour.
-            </p>
-            <p className="mb-4">Dernière mise à jour : 5 mars 2025</p>
-          </section>
+        
 
           <section>
             <h2 className="text-2xl font-semibold mb-4">10. Contact</h2>

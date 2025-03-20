@@ -1,6 +1,6 @@
 export const metadata = {
   title: "Conditions d'utilisation - Infrans",
-  description: "Conditions générales d'utilisation du site NetSys Solutions.",
+  description: "Conditions générales d'utilisation du site Infrans.",
 }
 
 export default function ConditionsUtilisationPage() {
@@ -26,15 +26,11 @@ export default function ConditionsUtilisationPage() {
             <h2 className="text-2xl font-semibold mb-4">2. Utilisation de la licence</h2>
             <p className="mb-4">
               L'autorisation est accordée de télécharger temporairement une copie des documents publiés sur le site web
-              de NetSys Solutions pour un affichage personnel, non commercial et transitoire uniquement. Cette licence
+              de Infrans pour un affichage personnel, non commercial et transitoire uniquement. Cette licence
               ne constitue pas un transfert de titre et, sous cette licence, vous ne pouvez pas :
             </p>
             <ul className="list-disc pl-6 mb-4 space-y-2">
-              <li>Modifier ou copier les documents</li>
-              <li>Utiliser les documents à des fins commerciales ou pour une présentation publique</li>
-              <li>Tenter de décompiler ou de désosser tout logiciel contenu sur le site web de Infrans</li>
-              <li>Supprimer tout droit d'auteur ou autres notations de propriété des documents</li>
-              <li>Transférer les documents à une autre personne ou "miroir" les documents sur un autre serveur</li>
+              
             </ul>
             <p className="mb-4">
               Cette licence sera automatiquement résiliée si vous violez l'une de ces restrictions et peut être résiliée

@@ -1,39 +1,37 @@
-import { Server, Shield, Cpu, Network, Cloud, Clock } from "lucide-react"
+"use client"
+
+import { Server, Cpu, Network, Cloud } from "lucide-react"
 import Link from "next/link"
 import { Button } from "./ui/button"
+import { useLanguage } from "@/lib/i18n/LanguageContent"
+
 export default function Services() {
+  const { t } = useLanguage()
+
   const services = [
     {
       icon: <Server className="h-10 w-10 text-primary" />,
-      title: "Infrastructure Réseau",
-      description: "Conception, installation et maintenance de réseaux informatiques sécurisés et performants.",
-      lien:'/services/infrastructure-reseau',
+      title: t("services.infrastructure"),
+      description: t("services.infrastructure_description"),
+      lien: "/services/infrastructure-reseau",
     },
-    ,
     {
       icon: <Cpu className="h-10 w-10 text-primary" />,
-      title: "Maintenance Système",
-      description: "Services de maintenance préventive et corrective pour assurer la continuité de vos opérations.",
-      lien:'/services/maintenance-systeme',
+      title: t("services.maintenance"),
+      description: t("services.maintenance_description"),
+      lien: "/services/maintenance-systeme",
     },
     {
       icon: <Network className="h-10 w-10 text-primary" />,
-      title: "Solutions VPN",
-      description: "Mise en place de réseaux privés virtuels pour un accès sécurisé à distance à vos ressources.",
-      lien:'/services/solutions-vpn',
+      title: t("services.vpn"),
+      description: t("services.vpn_description"),
+      lien: "/services/solutions-vpn",
     },
     {
       icon: <Cloud className="h-10 w-10 text-primary" />,
-      title: "Cloud Computing",
-      description: "Migration et gestion de vos services vers le cloud pour plus de flexibilité et d'évolutivité.",
-      lien:'/services/cloud-computing',
-    },
-    {
-      icon: <Clock className="h-10 w-10 text-primary" />,
-      title: "Support 24/7",
-      description:
-        "Assistance technique disponible 24h/24 et 7j/7 pour résoudre rapidement vos problèmes informatiques.",
-      lien:'/services/infrastructure-reseau',  
+      title: t("services.cloud"),
+      description: t("services.cloud_description"),
+      lien: "/services/cloud-computing",
     },
   ]
 
@@ -42,9 +40,11 @@ export default function Services() {
       <div className="container px-4 md:px-6 mx-auto">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Nos Services</h2>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+              {t("services.title")}
+            </h2>
             <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Des solutions complètes pour répondre à tous vos besoins informatiques
+              {t("services.subtitle")}
             </p>
           </div>
         </div>
@@ -55,15 +55,14 @@ export default function Services() {
               <h3 className="text-xl font-bold text-center">{service.title}</h3>
               <p className="text-center text-muted-foreground">{service.description}</p>
               <Button asChild variant="outline">
-            <Link href={service.lien}>En savoir plus</Link>
-          </Button>
+                <Link href={service.lien}>
+                  <span>{t("services.learn_more")}</span>
+                </Link>
+              </Button>
             </div>
           ))}
         </div>
-        
       </div>
-     
     </section>
   )
 }
-

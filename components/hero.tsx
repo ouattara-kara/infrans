@@ -1,7 +1,13 @@
+
+"use client"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { useLanguage } from "@/lib/i18n/LanguageContent"
 
 export default function Hero() {
+const { t, currentLang, setLanguage } = useLanguage()
+
+
   return (
     <section className="w-full py-12 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6 mx-auto">
@@ -9,19 +15,18 @@ export default function Hero() {
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-center lg:text-left">
-                Solutions informatiques pour votre entreprise
+                {t("hero.title")}
               </h1>
               <p className="max-w-[600px] text-muted-foreground md:text-xl text-center lg:text-left mx-auto lg:mx-0">
-                Expertise en réseau et systèmes informatiques pour optimiser votre infrastructure et sécuriser vos
-                données.
+              {t("hero.subtitle")}
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center lg:justify-start">
               <Button size="lg" asChild>
-                <a href="#services">Nos services</a>
+                <a href="#services"> {t("hero.services_btn")}</a>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <a href="#contact">Contactez-nous</a>
+                <a href="#contact"> {t("hero.contact_btn")}</a>
               </Button>
             </div>
           </div>

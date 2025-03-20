@@ -24,7 +24,7 @@ export default function MentionsLegalesPage() {
           <section>
             <h2 className="text-2xl font-semibold mb-4">2. Hébergement</h2>
             <p className="mb-4">
-              Le site est hébergé par la société Onma., dont le siège social est situé au ROME,
+              Le site est hébergé par la société Onma., dont le siège social est situé à ROME,
               Spienza, CA 91789, Italie.
             </p>
           </section>
@@ -32,8 +32,8 @@ export default function MentionsLegalesPage() {
           <section>
             <h2 className="text-2xl font-semibold mb-4">3. Propriété intellectuelle</h2>
             <p className="mb-4">
-              L'ensemble des éléments constituant le site Infrans (textes, graphismes, logiciels,
-              photographies, images, vidéos, sons, plans, logos, marques, etc.) ainsi que le site lui-même, sont la
+              L'ensemble des éléments constituant le site Infrans (textes, 
+             , images,  logos, etc.) ainsi que le site lui-même, sont la
               propriété exclusive de Infrans ou de ses partenaires. Ces éléments sont protégés par les lois
               relatives à la propriété intellectuelle.
             </p>

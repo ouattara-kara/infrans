@@ -1,18 +1,15 @@
+
+"use client"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { CheckCircle, Cpu, HardDrive, BarChart, Clock } from "lucide-react"
+import { useLanguage } from "@/lib/i18n/LanguageContent"
 
-
-export const metadata = {
-  title: "Maintenance Système -Infrans",
-  description:
-    "Services de maintenance préventive et corrective pour assurer la disponibilité et les performances optimales de vos systèmes informatiques.",
-}
 
 export default function MaintenanceSystemePage() {
 
-
+  const { t } = useLanguage();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between py-12">
       <div className="container px-4 md:px-6 mx-auto">
@@ -22,18 +19,18 @@ export default function MaintenanceSystemePage() {
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center lg:text-left">
-                Maintenance Système
+                {t("maintenanceSysteme.heroTitle")}
                 </h1>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-center lg:text-left">
-                Services de maintenance préventive et corrective pour assurer la disponibilité et les performances optimales de vos systèmes informatiques.
+                {t("maintenanceSysteme.heroDescription")}
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center lg:justify-start">
                 <Button size="lg" asChild>
-                  <Link href="/devis">Demander un devis</Link>
+                  <Link href="/devis">{t("maintenanceSysteme.demanderDevis")}</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <Link href="/contact">Nous contacter</Link>
+                  <Link href="/contact">{t("maintenanceSysteme.nousContacter")}</Link>
                 </Button>
               </div>
             </div>
@@ -50,47 +47,43 @@ export default function MaintenanceSystemePage() {
         {/* Nos services de maintenance système */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-8 text-center">
-          Nos services de maintenance système
+          {t("maintenanceSysteme.nosServices")}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="bg-card border rounded-lg p-6 shadow-sm flex flex-col items-center text-center">
               <div className="bg-primary/10 p-3 rounded-full mb-4">
                 <Cpu className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Maintenance préventive</h3>
+              <h3 className="text-xl font-bold mb-2">{t("maintenanceSysteme.maintenancePreventive")}</h3>
               <p className="text-muted-foreground">
-                Surveillance proactive, mises à jour régulières et optimisation de vos systèmes pour prévenir les
-                problèmes avant qu'ils n'affectent votre activité.
+              {t("maintenanceSysteme.maintenancePreventiveDescription")}
               </p>
             </div>
             <div className="bg-card border rounded-lg p-6 shadow-sm flex flex-col items-center text-center">
               <div className="bg-primary/10 p-3 rounded-full mb-4">
                 <HardDrive className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Maintenance corrective</h3>
+              <h3 className="text-xl font-bold mb-2">{t("maintenanceSysteme.maintenanceCorrective")}</h3>
               <p className="text-muted-foreground">
-                Résolution rapide et efficace des incidents et problèmes techniques pour minimiser les temps d'arrêt et
-                restaurer le fonctionnement normal.
+              {t("maintenanceSysteme.maintenanceCorrectiveDescription")}.
               </p>
             </div>
             <div className="bg-card border rounded-lg p-6 shadow-sm flex flex-col items-center text-center">
               <div className="bg-primary/10 p-3 rounded-full mb-4">
                 <BarChart className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Surveillance et reporting</h3>
+              <h3 className="text-xl font-bold mb-2">{t("maintenanceSysteme.surveillanceReporting")}</h3>
               <p className="text-muted-foreground">
-                Surveillance continue de vos systèmes avec alertes en temps réel et rapports détaillés sur les
-                performances et l'état de santé de votre infrastructure.
+              {t("maintenanceSysteme.surveillanceReportingDescription")}
               </p>
             </div>
             <div className="bg-card border rounded-lg p-6 shadow-sm flex flex-col items-center text-center">
               <div className="bg-primary/10 p-3 rounded-full mb-4">
                 <Clock className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Support technique 24/7</h3>
+              <h3 className="text-xl font-bold mb-2">{t("maintenanceSysteme.support24_7")}</h3>
               <p className="text-muted-foreground">
-                Assistance technique disponible 24h/24 et 7j/7 pour résoudre rapidement vos problèmes et répondre à vos
-                questions.
+              {t("maintenanceSysteme.support24_7Description")}.
               </p>
             </div>
             <div className="bg-card border rounded-lg p-6 shadow-sm flex flex-col items-center text-center">
@@ -110,10 +103,9 @@ export default function MaintenanceSystemePage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-2">Gestion des mises à jour</h3>
+              <h3 className="text-xl font-bold mb-2">{t("maintenanceSysteme.gestionMisesAJour")}</h3>
               <p className="text-muted-foreground">
-                Planification, test et déploiement des mises à jour logicielles et de sécurité pour maintenir vos
-                systèmes à jour et sécurisés.
+              {t("maintenanceSysteme.gestionMisesAJourDescription")}
               </p>
             </div>
             <div className="bg-card border rounded-lg p-6 shadow-sm flex flex-col items-center text-center">
@@ -133,59 +125,54 @@ export default function MaintenanceSystemePage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-2">Sauvegarde et restauration</h3>
+              <h3 className="text-xl font-bold mb-2">{t("maintenanceSysteme.sauvegardeRestauration")}</h3>
               <p className="text-muted-foreground">
-                Mise en place et gestion de solutions de sauvegarde fiables avec tests réguliers de restauration pour
-                garantir la récupération de vos données en cas d'incident.
+              {t("maintenanceSysteme.sauvegardeRestaurationDescription")}
               </p>
             </div>
           </div>
         </section>
 
-        {/* Pourquoi choisir NetSys Solutions */}
+        {/* Pourquoi choisir Infrans */}
         <section className="mb-16 bg-secondary py-12 rounded-lg">
           <div className="container px-4 md:px-6 mx-auto">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-8 text-center">
-            Pourquoi choisir Infrans
+            {t("maintenanceSysteme.pourquoiChoisir")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex items-start space-x-4">
                 <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold mb-2">Expertise technique</h3>
+                  <h3 className="text-xl font-bold mb-2">{t("maintenanceSysteme.expertiseTechnique")}</h3>
                   <p className="text-muted-foreground">
-                    Notre équipe est composée de techniciens certifiés avec une expertise approfondie sur les systèmes
-                    Windows, Linux, macOS et les technologies de virtualisation.
+                  {t("maintenanceSysteme.expertiseTechniqueDescription")}.
                   </p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
                 <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold mb-2">Approche proactive</h3>
+                  <h3 className="text-xl font-bold mb-2">{t("maintenanceSysteme.approcheProactive")}</h3>
                   <p className="text-muted-foreground">
-                    Nous identifions et résolvons les problèmes potentiels avant qu'ils n'affectent votre activité,
-                    minimisant ainsi les temps d'arrêt.
+                  {t("maintenanceSysteme.approcheProactiveDescription")}
                   </p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
                 <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold mb-2">Réactivité</h3>
+                  <h3 className="text-xl font-bold mb-2">{t("maintenanceSysteme.reactivite")}</h3>
                   <p className="text-muted-foreground">
-                    Nos équipes sont disponibles 24/7 pour répondre rapidement à vos besoins et résoudre les incidents
-                    dans les meilleurs délais.
+                  {t("maintenanceSysteme.reactiviteDescription")}
                   </p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
                 <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold mb-2">Solutions sur mesure</h3>
+                  <h3 className="text-xl font-bold mb-2">{t("maintenanceSysteme.solutionsSurMesure")}</h3>
                   <p className="text-muted-foreground">
-                    Nous adaptons nos services de maintenance à vos besoins spécifiques et à votre environnement
-                    informatique.
+                  {t("maintenanceSysteme.solutionsSurMesureDescription")}
                   </p>
                 </div>
               </div>
@@ -196,7 +183,7 @@ export default function MaintenanceSystemePage() {
         {/* Études de cas */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-8 text-center">
-          Nos réalisations
+          {t("maintenanceSysteme.nosRealisations")}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-card border rounded-lg overflow-hidden shadow-sm">
@@ -208,14 +195,11 @@ export default function MaintenanceSystemePage() {
                 className="w-full h-48 object-cover"
               />
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">Optimisation des systèmes pour une PME</h3>
+                <h3 className="text-xl font-bold mb-2">{t("maintenanceSysteme.optimisationSystemes")}</h3>
                 <p className="text-muted-foreground mb-4">
-                  Mise en place d'une maintenance préventive et d'une surveillance proactive pour une PME, réduisant les
-                  incidents de 80% et améliorant la productivité.
+                {t("maintenanceSysteme.optimisationSystemesDescription")}
                 </p>
-                <Button variant="outline" size="sm">
-                  Lire l'étude de cas
-                </Button>
+                
               </div>
             </div>
             <div className="bg-card border rounded-lg overflow-hidden shadow-sm">
@@ -227,14 +211,11 @@ export default function MaintenanceSystemePage() {
                 className="w-full h-48 object-cover"
               />
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">Support 24/7 pour un groupe hôtelier</h3>
+                <h3 className="text-xl font-bold mb-2">{t("maintenanceSysteme.support24_7Hotelier")}</h3>
                 <p className="text-muted-foreground mb-4">
-                  Mise en place d'un service de support technique 24/7 pour un groupe hôtelier, garantissant la
-                  continuité des services informatiques essentiels.
+                {t("maintenanceSysteme.support24_7HotelierDescription")}
                 </p>
-                <Button variant="outline" size="sm">
-                  Lire l'étude de cas
-                </Button>
+               
               </div>
             </div>
           </div>
@@ -242,11 +223,11 @@ export default function MaintenanceSystemePage() {
 
         {/* CTA */}
         <section className="bg-primary text-primary-foreground py-12 rounded-lg text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">Besoin d'une maintenance système fiable ?</h2>
-          <p className="mb-6 max-w-2xl mx-auto">Contactez-nous dès aujourd'hui pour discuter de vos besoins en maintenance système et découvrir comment nous pouvons vous aider à assurer la continuité de vos opérations.</p>
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">{t("maintenanceSysteme.besoinMaintenance")}</h2>
+          <p className="mb-6 max-w-2xl mx-auto">{t("maintenanceSysteme.besoinMaintenanceDescription")}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90">
-              <Link href="/devis">Demander un devis</Link>
+              <Link href="/devis">{t("maintenanceSysteme.demanderDevis")}</Link>
             </Button>
             <Button
               size="lg"
@@ -254,7 +235,7 @@ export default function MaintenanceSystemePage() {
               asChild
               className="bg-transparent border-white text-white hover:bg-primary-foreground/10"
             >
-              <Link href="/contact">Contactez-Nous</Link>
+              <Link href="/contact">{t("maintenanceSysteme.nousContacter")}</Link>
             </Button>
           </div>
         </section>

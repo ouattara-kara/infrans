@@ -1,33 +1,33 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { Button } from "@/components/ui/button"
-import { Globe } from "lucide-react"
-import { setCookie, getCookie } from "@/lib/cookies"
+import { useState, useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Globe } from "lucide-react";
+import { setCookie, getCookie } from "@/lib/cookies";
 
 type Language = {
-  code: string
-  name: string
-  flag: string
-}
+  code: string;
+  name: string;
+  flag: string;
+};
 
 const languages: Language[] = [
   { code: "fr", name: "Français", flag: "🇫🇷" },
   { code: "en", name: "English", flag: "🇬🇧" },
-  
-]
+];
 
 export default function LanguageSwitcher() {
-  const [currentLang, setCurrentLang] = useState<string>("fr")
-  const [isOpen, setIsOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
-  const buttonRef = useRef<HTMLButtonElement>(null)
+  const [currentLang, setCurrentLang] = useState<Language>(languages[0]); // Stocker la langue actuelle avec son drapeau
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     // Récupérer la langue depuis les cookies au chargement
-    const savedLang = getCookie("language") || "fr"
-    setCurrentLang(savedLang)
-  }, [])
+    const savedLangCode = getCookie("language") || "fr";
+    const savedLang = languages.find((lang) => lang.code === savedLangCode) || languages[0];
+    setCurrentLang(savedLang);
+  }, []);
 
   useEffect(() => {
     // Fermer le menu si on clique en dehors
@@ -38,25 +38,26 @@ export default function LanguageSwitcher() {
         !menuRef.current.contains(event.target as Node) &&
         !buttonRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false)
+        setIsOpen(false);
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleLanguageChange = (langCode: string) => {
-    setCurrentLang(langCode)
-    setCookie("language", langCode, 365) // Stocker la préférence de langue pendant 1 an
-    setIsOpen(false)
+    const selectedLang = languages.find((lang) => lang.code === langCode) || languages[0];
+    setCurrentLang(selectedLang); // Mettre à jour la langue et le drapeau
+    setCookie("language", langCode, 365); // Stocker la préférence de langue pendant 1 an
+    setIsOpen(false);
 
     // Dans une application réelle, vous pourriez rediriger vers la version localisée
     // Pour l'instant, nous rechargeons simplement la page pour simuler le changement
     // window.location.reload()
-  }
+  };
 
   return (
     <div className="relative">
@@ -69,7 +70,12 @@ export default function LanguageSwitcher() {
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <Globe className="h-4 w-4" />
+        {/* Afficher le drapeau de la langue sélectionnée ou l'icône Globe si aucune langue n'est sélectionnée */}
+        {currentLang ? (
+          <span>{currentLang.flag}</span>
+        ) : (
+          <Globe className="h-4 w-4" />
+        )}
         <span className="sr-only">Changer de langue</span>
       </Button>
 
@@ -84,7 +90,7 @@ export default function LanguageSwitcher() {
                 key={language.code}
                 onClick={() => handleLanguageChange(language.code)}
                 className={`w-full text-left px-4 py-2 text-sm hover:bg-accent ${
-                  language.code === currentLang ? "bg-accent/50" : ""
+                  language.code === currentLang.code ? "bg-accent/50" : ""
                 }`}
               >
                 <span className="mr-2">{language.flag}</span>
@@ -95,6 +101,5 @@ export default function LanguageSwitcher() {
         </div>
       )}
     </div>
-  )
+  );
 }
-

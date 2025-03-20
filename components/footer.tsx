@@ -1,7 +1,13 @@
+"use client"
 import Link from "next/link"
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
 import Image from "next/image";
+import { useLanguage } from "@/lib/i18n/LanguageContent";
+
 export default function Footer() {
+  const { t } = useLanguage()
+
+
   return (
     <footer className="w-full border-t bg-background">
       <div className="container px-4 md:px-6 py-8 md:py-12 mx-auto">
@@ -9,7 +15,7 @@ export default function Footer() {
           <div className="space-y-4 flex flex-col items-center md:items-start">
             <h3 className="text-lg font-bold">Infrans</h3>
             <p className="text-sm text-muted-foreground max-w-xs mx-auto md:mx-0">
-              Solutions de réseau et système informatique pour entreprises. Expertise, fiabilité et innovation.
+              {t("footer.subtitle")}
             </p>
             <div className="flex space-x-4">
               <Link href="#" className="text-muted-foreground hover:text-primary">
@@ -35,44 +41,44 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/services/infrastructure-reseau" className="text-muted-foreground hover:text-primary">
-                  Infrastructure Réseau
+                {t("footer.services.infrastructure")}
                 </Link>
               </li>
             
               <li>
                 <Link href="/services/maintenance-systeme" className="text-muted-foreground hover:text-primary">
-                  Maintenance Système
+                {t("footer.services.maintenance")}
                 </Link>
               </li>
               <li>
                 <Link href="/services/solutions-vpn" className="text-muted-foreground hover:text-primary">
-                  Solutions VPN
+                {t("footer.services.vpn")}
                 </Link>
               </li>
               <li>
                 <Link href="/services/cloud-computing" className="text-muted-foreground hover:text-primary">
-                  Cloud Computing
+                {t("footer.services.cloud")}
                 </Link>
               </li>
             </ul>
           </div>
           <div className="space-y-4 flex flex-col items-center md:items-start">
-            <h3 className="text-lg font-bold">Entreprise</h3>
+            <h3 className="text-lg font-bold">{t("footer.services.link")}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/a-propos" className="text-muted-foreground hover:text-primary">
-                  À propos
+                  {t("nav.about")}
                 </Link>
               </li>
               <li>
                 <Link href="/equipe" className="text-muted-foreground hover:text-primary">
-                  Équipe
+                {t("footer.equipe")}
                 </Link>
               </li>
               
               <li>
                 <Link href="/partenaires" className="text-muted-foreground hover:text-primary">
-                  Partenaires
+                {t("footer.partenaire")}
                 </Link>
               </li>
               
@@ -83,17 +89,17 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/mentions-legales" className="text-muted-foreground hover:text-primary">
-                  Mentions légales
+                  {t("footer.legal")}
                 </Link>
               </li>
               <li>
                 <Link href="/politique-confidentialite" className="text-muted-foreground hover:text-primary">
-                  Politique de confidentialité
+                {t("footer.Terms")}
                 </Link>
               </li>
               <li>
                 <Link href="/conditions-utilisation" className="text-muted-foreground hover:text-primary">
-                  Conditions d'utilisation
+                {t("footer.policy")}
                 </Link>
               </li>
               
