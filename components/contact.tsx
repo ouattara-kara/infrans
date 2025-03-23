@@ -6,9 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContent"; 
+import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore";
+
 
 export default function Contact() {
-  const { t } = useLanguage(); 
+  const { t } = useLanguageStore(); 
 
   const [formData, setFormData] = useState({
     name: "",

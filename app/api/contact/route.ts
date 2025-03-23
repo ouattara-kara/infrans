@@ -15,9 +15,7 @@ function getGreeting() {
 export async function POST(request: Request) {
     
     const { name, email, subject, message, lang = 'en' } = await request.json();
-
-   
-    const t = translations[lang] || translations['en']; 
+    const t = translations[lang as keyof typeof translations] || translations['en']; 
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',

@@ -8,6 +8,7 @@ import Image from "next/image";
 import { Linkedin, Twitter, Mail } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContent"
+import { useLanguageStore } from '@/lib/i18n/store/useLanguageStore';
 
 interface EquipeMember {
   id: number;
@@ -22,7 +23,7 @@ interface EquipeMember {
 
 export default function EquipePage() {
 
-   const { t } = useLanguage();
+   const { t } = useLanguageStore();
   const [teamMembers, setTeamMembers] = useState<EquipeMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { CheckCircle, Shield, Globe, Lock, Network } from "lucide-react"
 import { useLanguage } from "@/lib/i18n/LanguageContent"
+import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore"
 
 
 
 export default function SolutionsVPNPage() {
   
-const { t } = useLanguage();
+const { t } = useLanguageStore();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between py-12">
       <div className="container px-4 md:px-6 mx-auto">

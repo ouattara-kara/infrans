@@ -3,6 +3,8 @@
 import Image from "next/image"
 import { CheckCircle } from "lucide-react"
 import { useLanguage } from "@/lib/i18n/LanguageContent"
+import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore"
+
 {/* 
 export const metadata = {
   title: "À propos - Infrans",
@@ -10,7 +12,7 @@ export const metadata = {
 }
 */}
 export default function AProposPage() {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between py-12">
       <div className="container px-4 md:px-6 mx-auto">

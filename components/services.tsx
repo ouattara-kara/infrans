@@ -4,9 +4,11 @@ import { Server, Cpu, Network, Cloud } from "lucide-react"
 import Link from "next/link"
 import { Button } from "./ui/button"
 import { useLanguage } from "@/lib/i18n/LanguageContent"
+import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore"
+
 
 export default function Services() {
-  const { t } = useLanguage()
+  const { t } = useLanguageStore()
 
   const services = [
     {

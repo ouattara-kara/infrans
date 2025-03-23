@@ -1,62 +1,27 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Globe } from "lucide-react";
-import { setCookie, getCookie } from "@/lib/cookies";
+import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore";
 
-type Language = {
-  code: string;
-  name: string;
-  flag: string;
-};
-
-const languages: Language[] = [
+const languages = [
   { code: "fr", name: "Français", flag: "🇫🇷" },
   { code: "en", name: "English", flag: "🇬🇧" },
 ];
 
 export default function LanguageSwitcher() {
-  const [currentLang, setCurrentLang] = useState<Language>(languages[0]); // Stocker la langue actuelle avec son drapeau
+  const { currentLang, setLanguage } = useLanguageStore();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    // Récupérer la langue depuis les cookies au chargement
-    const savedLangCode = getCookie("language") || "fr";
-    const savedLang = languages.find((lang) => lang.code === savedLangCode) || languages[0];
-    setCurrentLang(savedLang);
-  }, []);
-
-  useEffect(() => {
-    // Fermer le menu si on clique en dehors
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        menuRef.current &&
-        buttonRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  // Trouver la langue actuelle dans la liste
+  const selectedLanguage = languages.find((lang) => lang.code === currentLang) || languages[0];
 
   const handleLanguageChange = (langCode: string) => {
-    const selectedLang = languages.find((lang) => lang.code === langCode) || languages[0];
-    setCurrentLang(selectedLang); // Mettre à jour la langue et le drapeau
-    setCookie("language", langCode, 365); // Stocker la préférence de langue pendant 1 an
+    setLanguage(langCode);
     setIsOpen(false);
-
-    // Dans une application réelle, vous pourriez rediriger vers la version localisée
-    // Pour l'instant, nous rechargeons simplement la page pour simuler le changement
-    // window.location.reload()
   };
 
   return (
@@ -70,12 +35,7 @@ export default function LanguageSwitcher() {
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        {/* Afficher le drapeau de la langue sélectionnée ou l'icône Globe si aucune langue n'est sélectionnée */}
-        {currentLang ? (
-          <span>{currentLang.flag}</span>
-        ) : (
-          <Globe className="h-4 w-4" />
-        )}
+        <span>{selectedLanguage.flag}</span>
         <span className="sr-only">Changer de langue</span>
       </Button>
 
@@ -90,7 +50,7 @@ export default function LanguageSwitcher() {
                 key={language.code}
                 onClick={() => handleLanguageChange(language.code)}
                 className={`w-full text-left px-4 py-2 text-sm hover:bg-accent ${
-                  language.code === currentLang.code ? "bg-accent/50" : ""
+                  language.code === currentLang ? "bg-accent/50" : ""
                 }`}
               >
                 <span className="mr-2">{language.flag}</span>

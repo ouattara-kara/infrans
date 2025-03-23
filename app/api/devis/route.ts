@@ -27,9 +27,8 @@ export async function POST(request: Request) {
     contact_preference,
     lang = 'fr', 
   } = await request.json();
-
   // Vérifier si la langue existe dans les traductions
-  const t = translations[lang] || translations['fr']; 
+  const t = translations[lang as keyof typeof translations] || translations['fr']; 
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',

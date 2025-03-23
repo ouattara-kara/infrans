@@ -4,10 +4,11 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { CheckCircle, Cloud, Database, Lock, Server } from "lucide-react"
 import { useLanguage } from "@/lib/i18n/LanguageContent"
+import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore"
 
 
 export default function CloudComputingPage() {
- const { t } = useLanguage();
+ const { t } = useLanguageStore();
 
 
   return (

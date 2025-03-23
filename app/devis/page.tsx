@@ -2,10 +2,11 @@
 
 import DevisForm from "@/components/devis-form"
 import { useLanguage } from "@/lib/i18n/LanguageContent";
+import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore";
 
 
 export default function DevisPage() {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between py-12 w-full">
       <div className="container px-4 md:px-6 mx-auto">

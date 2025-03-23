@@ -8,10 +8,11 @@ import Link from "next/link"
 import SmoothScrollLink from "@/components/smooth-scroll-link"
 import LanguageSwitcher from "@/components/language-switcher"
 import { useLanguage } from "@/lib/i18n/LanguageContent"
+import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore"
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const { t, currentLang, setLanguage } = useLanguage()
+  const { t, currentLang, setLanguage } = useLanguageStore()
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">

@@ -2,10 +2,11 @@
 import Link from "next/link"
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
 import Image from "next/image";
-import { useLanguage } from "@/lib/i18n/LanguageContent";
+import { useLanguage } from "@/lib/i18n/LanguageContent"
+import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore";
 
 export default function Footer() {
-  const { t } = useLanguage()
+  const { t } = useLanguageStore()
 
 
   return (

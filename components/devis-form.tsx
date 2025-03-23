@@ -23,6 +23,8 @@ import { fr } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useLanguage } from "@/lib/i18n/LanguageContent";
+import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore";
+
 
 // Schéma de validation du formulaire avec traduction
 const formSchema = (t: (key: string) => string) =>
@@ -58,7 +60,7 @@ const formSchema = (t: (key: string) => string) =>
   });
 
 export default function DevisForm() {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);

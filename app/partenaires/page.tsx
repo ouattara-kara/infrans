@@ -7,6 +7,7 @@ import { useLanguage } from "@/lib/i18n/LanguageContent"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguageStore } from '@/lib/i18n/store/useLanguageStore';
 
 // Définir l'interface Partenaire
 interface Partenaire {
@@ -19,7 +20,7 @@ interface Partenaire {
 }
 
 export default function PartenairesPage() {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   const [partners, setPartners] = useState<Partenaire[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

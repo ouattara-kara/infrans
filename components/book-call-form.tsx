@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import PhoneInput from "@/components/PhoneInput";
 import { useLanguage } from "@/lib/i18n/LanguageContent";
+import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore";
 
 // Schéma de validation du formulaire avec traduction
 const formSchema = (t: (key: string) => string) =>
@@ -52,7 +53,7 @@ const heuresDisponibles = [
 ];
 
 export default function BookCallPage() {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -188,7 +189,7 @@ export default function BookCallPage() {
                     <FormItem>
                       <FormLabel>{t("api.BookCall_Telephone")}</FormLabel>
                       <FormControl>
-                        <PhoneInput value={field.value} onChange={field.onChange} />
+                        <PhoneInput value={field.value} onChange={(value) => field.onChange(value.__tag === "E164Number" ? value : value.toString().replace(/\D/g, ''))} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

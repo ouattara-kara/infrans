@@ -5,9 +5,11 @@ import { CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/i18n/LanguageContent"
 import { useEffect, useState } from "react"
+import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore"
+
 
 export default function About() {
-  const { t, currentLang } = useLanguage()
+  const { t, currentLang } = useLanguageStore()
   const [isClient, setIsClient] = useState(false) // État pour vérifier si le composant est côté client
 
   useEffect(() => {

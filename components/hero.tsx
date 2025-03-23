@@ -3,9 +3,11 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/i18n/LanguageContent"
+import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore"
+
 
 export default function Hero() {
-const { t, currentLang, setLanguage } = useLanguage()
+const { t, currentLang, setLanguage } = useLanguageStore()
 
 
   return (

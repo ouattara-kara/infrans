@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   // Valider la langue
   const supportedLanguages = ['fr', 'en']; 
   const defaultLanguage = 'fr';
-  const t = supportedLanguages.includes(lang) ? translations[lang] : translations[defaultLanguage];
+  const t = supportedLanguages.includes(lang) ? translations[lang as keyof typeof translations] : translations[defaultLanguage];
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',

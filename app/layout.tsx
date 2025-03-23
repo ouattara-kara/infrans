@@ -9,7 +9,7 @@ import ScrollToTop from "@/components/scroll-to-top"
 import ScrollProgress from "@/components/scroll-progress"
 import SectionNavigator from "@/components/section-navigator"
 import Chatbot from "@/components/chatbot"
-import { LanguageProvider } from "@/lib/i18n/LanguageContent" // Importez le LanguageProvider
+
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <body className={inter.className}>
-        <LanguageProvider> {/* Enveloppez tout avec LanguageProvider */}
+       
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <ScrollProgress />
             <Navbar />
@@ -37,7 +37,6 @@ export default function RootLayout({
             <SectionNavigator />
             <Chatbot />
           </ThemeProvider>
-        </LanguageProvider>
       </body>
     </html>
   )
