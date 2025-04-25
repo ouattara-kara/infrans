@@ -8,7 +8,9 @@ import { useLanguageStore } from "@/lib/i18n/store/useLanguageStore";
 export default function Footer() {
   const { t } = useLanguageStore()
 
-
+  const currentYear = new Date().getFullYear()
+  const startYear = 2025
+  
   return (
     <footer className="w-full border-t bg-background">
       <div className="container px-4 md:px-6 py-8 md:py-12 mx-auto">
@@ -105,7 +107,11 @@ export default function Footer() {
         </div>
         
         <div className="mt-8 border-t pt-10 text-center text-sm text-muted-foreground ">
-          <p > <span>Infrans</span> © 2025 - {new Date().getFullYear()} </p>
+        {startYear === currentYear ? (
+    <>Proxipay © {currentYear}. Tous droits réservés.</>
+  ) : (
+    <>Proxipay © {startYear} - {currentYear}. Tous droits réservés.</>
+  )}
           <p className="my-2">
             Powered by{" "}
             <Link href="https://onma.io" target="_blank" rel="noopener noreferrer">
@@ -127,4 +133,3 @@ export default function Footer() {
     </footer>
   )
 }
-
