@@ -10,7 +10,7 @@ interface LanguageState {
 }
 
 export const useLanguageStore = create<LanguageState>((set, get) => {
-  const savedLang = getCookie("language") || "fr"; // Langue par défaut
+  const savedLang = getCookie("language") || "en"; 
 
   return {
     currentLang: savedLang,
@@ -19,7 +19,7 @@ export const useLanguageStore = create<LanguageState>((set, get) => {
       setCookie("language", lang, 365);
     },
     t: (key) => {
-      const lang = get().currentLang; // 🔥 Utiliser la langue actuelle
+      const lang = get().currentLang;
       return translations[lang]?.[key] || key;
     },
   };

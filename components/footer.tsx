@@ -71,11 +71,7 @@ export default function Footer() {
                   {t("nav.about")}
                 </Link>
               </li>
-              <li>
-                <Link href="/equipe" className="text-muted-foreground hover:text-primary">
-                {t("footer.equipe")}
-                </Link>
-              </li>
+             
               
               <li>
                 <Link href="/partenaires" className="text-muted-foreground hover:text-primary">

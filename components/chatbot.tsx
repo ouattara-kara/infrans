@@ -151,7 +151,7 @@ export default function Chatbot() {
           </Button>
         </CardHeader>
 
-        <CardContent className="p-0">
+        <CardContent className="py-4">
           <div className="h-80 overflow-y-auto p-4 space-y-4">
             {messages.map((message) => (
               <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
