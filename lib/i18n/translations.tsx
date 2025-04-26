@@ -60,6 +60,7 @@ devis_erreurEmail: "Une erreur s'est produite.",
 
 
 
+
     },
     en: {
        
@@ -121,5 +122,6 @@ devis_equipe: "The Insfrans team",
 devis_emailEnvoye: "Email sent successfully!",
 devis_erreurEmailSend: "Error sending the email:",
 devis_erreurEmail: "An error has occurred.",
+
     },
   };

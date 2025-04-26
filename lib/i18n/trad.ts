@@ -227,7 +227,7 @@ type Translations = {
   "api.devis_mailoptionsubject":"Confirmation de réception de votre demande de devis",
   "api.devis_recap":" Nous avons bien reçu votre demande de devis. Voici un récapitulatif de votre demande :",
   "api.devis_bientot":" Nous vous contacterons bientôt pour discuter de votre projet.",
-  
+  "api.Devis_Reserverrdv":"Reserver rendez-vous",
   // api send-email
   "api.sendemail_subject":" Nouvelle demande de rendez-vous",
   "api.sendemail_Name":"Nom",
@@ -853,7 +853,7 @@ type Translations = {
   "api.devis_mailoptionsubject": "Confirmation of receipt of your quote request",
   "api.devis_recap": "We have received your quote request. Here is a summary of your request:",
   "api.devis_bientot": "We will contact you soon to discuss your project.",
-  
+  "api.Devis_Reserverrdv":"Book now",
   
   
   // book a call
