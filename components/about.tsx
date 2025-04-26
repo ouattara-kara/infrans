@@ -34,7 +34,7 @@ export default function About() {
       <div className="container px-4 md:px-6 mx-auto">
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
           <Image
-            src="/onma.png"
+            src="/photo2.avif"
             width={600}
             height={400}
             alt={t("about.image_alt")}

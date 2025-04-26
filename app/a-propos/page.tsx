@@ -29,7 +29,7 @@ export default function AProposPage() {
         <section className="mb-16">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
             <Image
-              src="/onma.png"
+              src="/photo3.jpg"
               width={600}
               height={400}
               alt="Histoire de infrans"

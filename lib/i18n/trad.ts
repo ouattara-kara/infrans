@@ -485,7 +485,7 @@ type Translations = {
     "footer.equipe":"Équipe",
     "footer.partenaire":"Parténaires",
     "footer.legal":"Mentions légales",
-    "footer.Terms ":"Politique de confidentialité",
+    "footer.Terms":"Politique de confidentialité",
     "footer.policy":"Conditions utilisation",
   
   

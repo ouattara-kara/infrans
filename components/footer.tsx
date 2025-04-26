@@ -16,7 +16,7 @@ export default function Footer() {
       <div className="container px-4 md:px-6 py-8 md:py-12 mx-auto">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4 text-center md:text-left">
           <div className="space-y-4 flex flex-col items-center md:items-start">
-            <h3 className="text-lg font-bold">Infrans</h3>
+            <h3 className="text-lg font-bold">INFRANS</h3>
             <p className="text-sm text-muted-foreground max-w-xs mx-auto md:mx-0">
               {t("footer.subtitle")}
             </p>
@@ -108,9 +108,9 @@ export default function Footer() {
         
         <div className="mt-8 border-t pt-10 text-center text-sm text-muted-foreground ">
         {startYear === currentYear ? (
-    <>Proxipay © {currentYear}. Tous droits réservés.</>
+    <>Infrans © {currentYear}. Tous droits réservés.</>
   ) : (
-    <>Proxipay © {startYear} - {currentYear}. Tous droits réservés.</>
+    <>Infrans © {startYear} - {currentYear}. Tous droits réservés.</>
   )}
           <p className="my-2">
             Powered by{" "}
